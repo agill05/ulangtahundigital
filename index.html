@@ -1,34 +1,71 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Undangan Ulang Tahun</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Undangan Ulang Tahun Spesial</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+        <style>
         :root {
-            /* TEMA WARNA (Ganti kode warna di sini untuk mengubah tema) */
-            --primary-color: #8E7C68; /* Warna Emas/Coklat Elegan */
-            --bg-color: #FDFBF7;      /* Warna Cream lembut */
-            --text-color: #333;
-            --accent-color: #D4C4B7;
+            --primary-gold: #D4AF37;
+            --deep-burgundy: #2C1810;
+            --cream: #FAF9F6;
+            --rose-gold: #B76E79;
+            --soft-pink: #FFF5F7;
+            --dark-text: #1a1a1a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 100%);
+            color: var(--dark-text);
             overflow-x: hidden;
         }
 
-        /* --- COVER SECTION (Halaman Depan) --- */
+        /* PARTICLES BACKGROUND */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-100px) translateX(50px); }
+            50% { transform: translateY(-200px) translateX(-30px); }
+            75% { transform: translateY(-100px) translateX(30px); }
+        }
+
+        /* COVER PAGE */
         #cover {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1530103862676-de3c9a59af38?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(44, 24, 16, 0.85), rgba(44, 24, 16, 0.75)),
+                        url('https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -36,82 +73,357 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        #cover.open {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1);
+        }
+
+        .cover-ornament {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInDown 1s forwards 0.5s;
+        }
+
+        .cover-content {
+            text-align: center;
             color: white;
-            text-align: center;
-            transition: transform 0.8s ease-in-out;
+            max-width: 90%;
         }
-        
-        #cover.open { transform: translateY(-100%); }
 
-        .cover-content h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; margin-bottom: 10px; }
-        .cover-content p { margin-bottom: 20px; letter-spacing: 2px; }
-        
+        .cover-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--primary-gold);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInDown 1s forwards 0.7s;
+        }
+
+        .cover-content h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 20px rgba(212, 175, 55, 0.5);
+            opacity: 0;
+            animation: fadeInScale 1s forwards 1s;
+        }
+
+        .cover-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeInDown 1s forwards 1.3s;
+        }
+
         .btn-open {
-            padding: 12px 30px;
+            padding: 16px 50px;
             border-radius: 50px;
-            border: none;
-            background-color: white;
-            color: #333;
-            font-weight: bold;
+            border: 2px solid var(--primary-gold);
+            background: transparent;
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255,255,255,0.3);
-            animation: pulse 2s infinite;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.5s;
         }
 
-        /* --- MAIN CONTENT --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; padding-bottom: 80px; }
-        
+        .btn-open:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gold);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-open:hover:before {
+            left: 0;
+        }
+
+        .btn-open:hover {
+            color: var(--deep-burgundy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            padding-bottom: 100px;
+            position: relative;
+            z-index: 2;
+        }
+
         section {
-            margin-bottom: 50px;
+            margin-bottom: 80px;
             text-align: center;
-            padding: 30px 20px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            opacity: 0; /* Untuk animasi scroll */
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        
-        section.visible { opacity: 1; transform: translateY(0); }
 
-        h2 { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary-gold), var(--rose-gold));
+        }
 
-        /* Profile Photo */
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--rose-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--deep-burgundy);
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--rose-gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        /* PROFILE SECTION */
+        .profile-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
         .profile-img {
-            width: 150px; height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid var(--accent-color);
+            border: 5px solid var(--primary-gold);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
+            animation: floatProfile 3s ease-in-out infinite;
+        }
+
+        @keyframes floatProfile {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .profile-ornament {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            opacity: 0.3;
+        }
+
+        /* EVENT DETAILS */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .event-card {
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(183, 110, 121, 0.05));
+            border-radius: 20px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+            border-color: var(--primary-gold);
+        }
+
+        .event-card i {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--rose-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
 
-        /* Gallery Grid */
+        .event-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--deep-burgundy);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .event-card p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* COUNTDOWN */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .countdown-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.85rem;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* GALLERY */
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
         }
-        .gallery img {
-            width: 100%; height: 150px;
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            aspect-ratio: 1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s;
+            transition: transform 0.6s ease;
         }
-        .gallery img:hover { transform: scale(1.05); }
 
-        /* Map */
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+
+        .gallery-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.4), rgba(183, 110, 121, 0.4));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover:before {
+            opacity: 1;
+        }
+
+        /* MAP */
+        .map-container {
+            margin-top: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
         .map-container iframe {
-            width: 100%; height: 300px; border: 0; border-radius: 15px;
+            width: 100%;
+            height: 400px;
+            border: 0;
         }
 
-        /* Music Button */
+        .btn-primary {
+            display: inline-block;
+            padding: 15px 40px;
+            margin-top: 25px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--rose-gold));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        /* MUSIC CONTROL */
         .music-control {
             position: fixed;
-            bottom: 20px; right: 20px;
-            width: 50px; height: 50px;
-            background: var(--primary-color);
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-gold), var(--rose-gold));
             border-radius: 50%;
             display: flex;
             justify-content: center;
@@ -119,97 +431,338 @@
             color: white;
             cursor: pointer;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            animation: spin 4s linear infinite;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            transition: all 0.4s ease;
         }
-        .music-control.paused { animation-play-state: paused; }
 
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
 
-        /* Responsive */
-        @media (max-width: 600px) {
+        .music-control i {
+            font-size: 1.2rem;
+            animation: pulse 2s infinite;
+        }
+
+        .music-control.paused i {
+            animation: none;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            color: var(--rose-gold);
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* CREATOR MODE */
+        .creator-container {
+            max-width: 700px;
+            margin: 80px auto;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .creator-container h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem;
+            color: var(--deep-burgundy);
+            margin-bottom: 40px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .link-display {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(183, 110, 121, 0.05));
+            border-radius: 15px;
+            word-break: break-all;
+            line-height: 1.8;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .cover-content h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+            section { padding: 40px 25px; margin-bottom: 50px; }
+            .event-grid { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .countdown { gap: 20px; }
+            .countdown-number { font-size: 2.5rem; }
+            .profile-img { width: 150px; height: 150px; }
+            .creator-container { margin: 40px 20px; padding: 40px 25px; }
+            .creator-container h1 { font-size: 2.5rem; }
+            .music-control { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+        }
+
+        @media (max-width: 480px) {
+            .cover-content h1 { font-size: 2.2rem; }
+            .cover-subtitle { font-size: 0.75rem; letter-spacing: 2px; }
+            .btn-open { padding: 14px 35px; font-size: 0.85rem; }
             h2 { font-size: 2rem; }
-            .cover-content h1 { font-size: 2.5rem; }
+            .gallery { grid-template-columns: 1fr; }
         }
     </style>
-</head>
-<body>
+    </head>
+    <body>
 
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-    </audio>
+        <div class="particles" id="particles"></div>
 
-    <div id="cover">
-        <div class="cover-content">
-            <p>UNDANGAN ULANG TAHUN</p>
-            <h1>Nama Anda</h1>
-            <p>Minggu, 20 Januari 2026</p>
-            <button class="btn-open" onclick="openInvitation()">
-                <i class="fas fa-envelope-open"></i> Buka Undangan
-            </button>
+        <audio id="bg-music" loop>
+            <source
+                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                type="audio/mp3">
+        </audio>
+
+        <div id="cover">
+            <div class="cover-content">
+                <svg class="cover-ornament" viewBox="0 0 100 100" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="url(#grad)"
+                        stroke-width="2" />
+                    <defs>
+                        <lineargradient id="grad" x1="0%" y1="0%" x2="100%"
+                            y2="100%">
+                            <stop offset="0%"
+                                style="stop-color:#D4AF37;stop-opacity:1" />
+                            <stop offset="100%"
+                                style="stop-color:#B76E79;stop-opacity:1" />
+                        </lineargradient>
+                    </defs>
+                </svg>
+                <p class="cover-subtitle">Undangan Ulang Tahun</p>
+                <h1 id="cover-name">Nama Anda</h1>
+                <p class="cover-date">Minggu, 20 Januari 2026</p>
+                <button class="btn-open" onclick="openInvitation()">
+                    <i class="fas fa-envelope-open"></i> Buka Undangan
+                </button>
+            </div>
         </div>
-    </div>
 
-    <div class="container">
-        
-        <section id="home">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Profile" class="profile-img">
-            <h2>Save The Date</h2>
-            <p>Dengan penuh rasa syukur, saya mengundang teman-teman untuk hadir di acara ulang tahun saya yang ke-20.</p>
-        </section>
+        <div class="container">
 
-        <section id="event">
-            <h2>Waktu & Tempat</h2>
-            <div class="detail-item">
-                <i class="far fa-calendar-alt fa-2x" style="color:var(--primary-color)"></i>
-                <p><strong>Hari/Tanggal:</strong><br>Minggu, 20 Januari 2026</p>
-            </div>
-            <br>
-            <div class="detail-item">
-                <i class="far fa-clock fa-2x" style="color:var(--primary-color)"></i>
-                <p><strong>Pukul:</strong><br>19.00 WITA - Selesai</p>
-            </div>
-            <br>
-            <div class="detail-item">
-                <i class="fas fa-map-marker-alt fa-2x" style="color:var(--primary-color)"></i>
-                <p><strong>Lokasi:</strong><br>Cafe Senja, Manado</p>
-            </div>
-        </section>
+            <section id="home">
+                <div class="profile-container">
+                    <img
+                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                        alt="Profile" class="profile-img">
+                </div>
+                <p class="subtitle">Save The Date</p>
+                <h2>Perayaan Istimewa</h2>
+                <p
+                    style="max-width: 600px; margin: 20px auto; line-height: 1.8; color: #555;">
+                    Dengan penuh rasa syukur dan kebahagiaan, saya mengundang
+                    Anda untuk hadir dan berbagi kegembiraan di acara ulang
+                    tahun saya yang ke-20.
+                </p>
+            </section>
 
-        <section id="gallery">
-            <h2>Momen Bahagia</h2>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foto 1">
-                <img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foto 2">
-                <img src="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foto 3">
-                <img src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Foto 4">
-            </div>
-        </section>
+            <section id="countdown-section">
+                <div class="section-icon">
+                    <i class="far fa-clock"></i>
+                </div>
+                <p class="subtitle">Hitung Mundur</p>
+                <h2>Menuju Hari Spesial</h2>
+                <div class="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Hari</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Jam</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">00</span>
+                        <span class="countdown-label">Menit</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">00</span>
+                        <span class="countdown-label">Detik</span>
+                    </div>
+                </div>
+            </section>
 
-        <section id="location">
-            <h2>Peta Lokasi</h2>
-            <p>Klik peta untuk membuka Google Maps</p>
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.87327346884!2d124.7733226!3d1.4930644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x328774269e831513%3A0xc3c9484082260850!2sManado%2C%20Manado%20City%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1673321404123!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            <br>
-            <a href="https://goo.gl/maps/contoh" target="_blank" style="text-decoration: none; background: var(--primary-color); color: white; padding: 10px 20px; border-radius: 5px;">Buka di Google Maps</a>
-        </section>
+            <section id="event">
+                <div class="section-icon">
+                    <i class="fas fa-calendar-star"></i>
+                </div>
+                <p class="subtitle">Detail Acara</p>
+                <h2>Waktu & Tempat</h2>
+                <div class="event-grid">
+                    <div class="event-card">
+                        <i class="far fa-calendar-alt"></i>
+                        <h3>Tanggal</h3>
+                        <p>Minggu<br>20 Januari 2026</p>
+                    </div>
+                    <div class="event-card">
+                        <i class="far fa-clock"></i>
+                        <h3>Waktu</h3>
+                        <p>19.00 WITA<br>Hingga Selesai</p>
+                    </div>
+                    <div class="event-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Lokasi</h3>
+                        <p>Cafe Senja<br>Manado, Sulawesi Utara</p>
+                    </div>
+                </div>
+            </section>
 
-    </div>
+            <section id="gallery">
+                <div class="section-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <p class="subtitle">Galeri</p>
+                <h2>Momen Berharga</h2>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img
+                            src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            alt="Foto 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img
+                            src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            alt="Foto 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img
+                            src="https://images.unsplash.com/photo-1532635241-17e820acc59f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            alt="Foto 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img
+                            src="https://images.unsplash.com/photo-1519834785169-98be25ec3f84?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80"
+                            alt="Foto 4">
+                    </div>
+                </div>
+            </section>
 
-    <div class="music-control" onclick="toggleMusic()">
-        <i class="fas fa-music" id="music-icon"></i>
-    </div>
+            <section id="location">
+                <div class="section-icon">
+                    <i class="fas fa-location-dot"></i>
+                </div>
+                <p class="subtitle">Peta Lokasi</p>
+                <h2>Temukan Kami</h2>
+                <p style="color: #777; margin-bottom: 20px;">Klik peta untuk
+                    navigasi di Google Maps</p>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127641.87327346884!2d124.7733226!3d1.4930644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x328774269e831513%3A0xc3c9484082260850!2sManado%2C%20Manado%20City%2C%20North%20Sulawesi!5e0!3m2!1sen!2sid!4v1673321404123!5m2!1sen!2sid"
+                        allowfullscreen loading="lazy"></iframe>
+                </div>
+                <a href="https://goo.gl/maps/contoh" target="_blank"
+                    class="btn-primary">
+                    <i class="fas fa-map-marked-alt"></i> Buka Google Maps
+                </a>
+            </section>
 
-    <script>
+        </div>
+
+        <footer>
+            <p>Kehadiran Anda adalah hadiah terindah bagi saya</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">~ Terima Kasih ~</p>
+        </footer>
+
+        <div class="music-control" onclick="toggleMusic()">
+            <i class="fas fa-music" id="music-icon"></i>
+        </div>
+
+        <script>
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // URL Parameters
         const urlParams = new URLSearchParams(window.location.search);
         const name = urlParams.get('name');
 
         if (name) {
-            // Mode undangan: tampilkan undangan dengan nama yang diberikan
-            document.querySelector('.cover-content h1').textContent = name;
+            // INVITATION MODE
+            document.getElementById('cover-name').textContent = name;
 
             const audio = document.getElementById('bg-music');
             const cover = document.getElementById('cover');
@@ -217,37 +770,56 @@
             const musicBtn = document.querySelector('.music-control');
             let isPlaying = false;
 
-            function openInvitation() {
-                // Hilangkan cover (geser ke atas)
+            window.openInvitation = function() {
                 cover.classList.add('open');
-                // Mulai musik
-                playMusic();
-                // Izinkan scroll
-                document.body.style.overflowY = 'auto';
+                setTimeout(() => {
+                    audio.play().catch(e => console.log('Audio autoplay prevented'));
+                    isPlaying = true;
+                }, 500);
             }
 
-            function playMusic() {
-                audio.play();
-                isPlaying = true;
-                musicBtn.classList.remove('paused'); // Animasi berputar
-            }
-
-            function toggleMusic() {
+            window.toggleMusic = function() {
                 if (isPlaying) {
                     audio.pause();
-                    musicBtn.classList.add('paused'); // Stop putar
-                    musicIcon.classList.remove('fa-music');
-                    musicIcon.classList.add('fa-pause');
+                    musicBtn.classList.add('paused');
+                    musicIcon.className = 'fas fa-pause';
                 } else {
                     audio.play();
                     musicBtn.classList.remove('paused');
-                    musicIcon.classList.remove('fa-pause');
-                    musicIcon.classList.add('fa-music');
+                    musicIcon.className = 'fas fa-music';
                 }
                 isPlaying = !isPlaying;
             }
 
-            // Animasi saat Scroll (Fade In)
+            // Countdown Timer
+            const eventDate = new Date('2026-01-20T19:00:00').getTime();
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = eventDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+
+                if (distance < 0) {
+                    document.getElementById('days').textContent = '00';
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                }
+            }
+
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+
+            // Scroll Animation
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -259,34 +831,46 @@
             document.querySelectorAll('section').forEach(section => {
                 observer.observe(section);
             });
+
         } else {
-            // Mode pembuat: tampilkan form untuk membuat link undangan
+            // CREATOR MODE
             document.getElementById('cover').style.display = 'none';
             document.querySelector('.container').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
             document.querySelector('.music-control').style.display = 'none';
 
             const creatorDiv = document.createElement('div');
+            creatorDiv.className = 'creator-container';
             creatorDiv.innerHTML = `
-                <div style="max-width: 600px; margin: 50px auto; padding: 20px; background: white; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center;">
-                    <h1 style="font-family: 'Dancing Script', cursive; color: var(--primary-color); margin-bottom: 20px;">Buat Undangan</h1>
-                    <input type="text" id="nameInput" placeholder="Masukkan nama yang diundang" style="width: 100%; padding: 10px; border: 2px solid var(--accent-color); border-radius: 10px; font-size: 16px; margin-bottom: 20px;">
-                    <br>
-                    <button onclick="generateLink()" style="padding: 12px 30px; border-radius: 50px; border: none; background-color: var(--primary-color); color: white; font-weight: bold; cursor: pointer;">Buat Link Undangan</button>
-                    <p id="linkDisplay" style="margin-top: 20px; word-break: break-all;"></p>
+                <h1>Buat Undangan</h1>
+                <p style="color: #777; margin-bottom: 40px;">Masukkan nama tamu untuk membuat link undangan personal</p>
+                <div class="input-group">
+                    <input type="text" id="nameInput" placeholder="Contoh: Budi Santoso">
                 </div>
+                <button onclick="generateLink()" class="btn-primary">
+                    <i class="fas fa-link"></i> Buat Link Undangan
+                </button>
+                <div id="linkDisplay" class="link-display" style="display:none;"></div>
             `;
             document.body.appendChild(creatorDiv);
         }
 
-        function generateLink() {
+        window.generateLink = function() {
             const nameInput = document.getElementById('nameInput').value.trim();
+            const linkDisplay = document.getElementById('linkDisplay');
+            
             if (nameInput) {
                 const link = window.location.origin + window.location.pathname + '?name=' + encodeURIComponent(nameInput);
-                document.getElementById('linkDisplay').innerHTML = 'Bagikan link ini: <a href="' + link + '" target="_blank">' + link + '</a>';
+                linkDisplay.style.display = 'block';
+                linkDisplay.innerHTML = `
+                    <p style="margin-bottom: 15px; color: var(--deep-burgundy); font-weight: 600;">Link undangan berhasil dibuat!</p>
+                    <a href="${link}" target="_blank" style="color: var(--primary-gold); word-break: break-all;">${link}</a>
+                    <p style="margin-top: 15px; font-size: 0.9rem; color: #777;">Salin dan bagikan link ini kepada ${nameInput}</p>
+                `;
             } else {
-                alert('Masukkan nama terlebih dahulu!');
+                alert('Silakan masukkan nama tamu terlebih dahulu!');
             }
         }
     </script>
-</body>
+    </body>
 </html>
