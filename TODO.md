@@ -1,112 +1,130 @@
-# TODO: Convertir le site web en application mobile pour Android et iOS
+# TODO: Transformer le site web en application mobile Android et iOS
 
-## Méthode choisie: Application Hybride avec Apache Cordova
-Cette approche permet de créer des applications natives pour Android et iOS en encapsulant le site web existant dans une coquille native, permettant la publication sur les stores d'applications.
+## Étape 1: Préparation du site web pour la conversion en PWA
+- [ ] Vérifier la responsivité du site sur mobile (utiliser les outils de développement Chrome/Firefox)
+- [ ] Optimiser les images pour le mobile (compression, formats WebP)
+- [ ] Assurer que toutes les ressources externes (fonts, CDN) sont accessibles hors ligne si possible
+- [ ] Tester la fonctionnalité sur différents navigateurs mobiles
 
-## Étape 1: Préparation de l'environnement de développement
-- [ ] Installer Node.js (version LTS) sur votre système
-- [ ] Installer Apache Cordova CLI globalement: `npm install -g cordova`
-- [ ] Installer les SDK nécessaires:
-  - [ ] Android Studio pour le développement Android
-  - [ ] Xcode pour le développement iOS (nécessite un Mac)
-- [ ] Configurer les variables d'environnement pour Android (ANDROID_HOME, etc.)
+## Étape 2: Implémentation des fonctionnalités PWA de base
+- [ ] Créer un fichier `manifest.json` avec :
+  - Nom de l'application
+  - Icônes pour différentes tailles (192x192, 512x512)
+  - Couleurs du thème
+  - Mode d'affichage (standalone)
+  - Orientation préférée
+- [ ] Ajouter le lien vers le manifest dans le `<head>` de index.html
+- [ ] Créer un service worker (`sw.js`) pour :
+  - Mise en cache des ressources statiques (HTML, CSS, JS, images)
+  - Stratégie de cache pour les requêtes réseau
+  - Gestion du mode hors ligne
+- [ ] Enregistrer le service worker dans script.js
+- [ ] Ajouter les meta tags pour l'installation PWA :
+  - `apple-mobile-web-app-capable`
+  - `apple-mobile-web-app-status-bar-style`
+  - `apple-mobile-web-app-title`
 
-## Étape 2: Analyse et optimisation du site web existant
-- [ ] Vérifier la compatibilité mobile du site (responsive design)
-- [ ] Optimiser les performances pour mobile:
-  - [ ] Compresser les images
-  - [ ] Minifier le CSS et JavaScript
-  - [ ] Optimiser les polices web
-- [ ] Tester le site sur différents navigateurs mobiles
-- [ ] S'assurer que toutes les ressources externes sont accessibles (Google Fonts, Font Awesome, etc.)
+## Étape 3: Test de la PWA
+- [ ] Tester l'installation sur Chrome Android
+- [ ] Tester l'installation sur Safari iOS
+- [ ] Vérifier le fonctionnement hors ligne
+- [ ] Tester les notifications push (si implémentées)
+- [ ] Valider avec Lighthouse (score > 90 pour PWA)
 
-## Étape 3: Création du projet Cordova
-- [ ] Créer un nouveau projet Cordova: `cordova create bac-en-poche-app com.example.bacenpoche "Bac en Poche"`
-- [ ] Naviguer dans le dossier du projet: `cd bac-en-poche-app`
-- [ ] Copier tous les fichiers du site web (HTML, CSS, JS, images) dans le dossier `www/`
-- [ ] Modifier les chemins relatifs si nécessaire pour correspondre à la structure Cordova
+## Étape 4: Configuration de Capacitor pour le wrapping natif
+- [ ] Installer Node.js et npm si pas déjà fait
+- [ ] Installer Capacitor globalement : `npm install -g @capacitor/cli`
+- [ ] Initialiser Capacitor dans le projet : `npx cap init`
+  - Nom de l'app
+  - Package ID (com.exemple.invitation)
+  - Web directory (racine du projet)
+- [ ] Ajouter les plateformes :
+  - `npx cap add android`
+  - `npx cap add ios`
+- [ ] Configurer capacitor.config.json :
+  - Plugins nécessaires
+  - Permissions
+  - Autres configurations
 
-## Étape 4: Configuration des plateformes
-- [ ] Ajouter la plateforme Android: `cordova platform add android`
-- [ ] Ajouter la plateforme iOS: `cordova platform add ios`
-- [ ] Vérifier les plateformes ajoutées: `cordova platform ls`
+## Étape 5: Développement et configuration Android
+- [ ] Ouvrir le projet Android : `npx cap open android`
+- [ ] Configurer AndroidManifest.xml :
+  - Permissions (INTERNET, ACCESS_NETWORK_STATE)
+  - Orientation
+  - Icônes et splash screens
+- [ ] Personnaliser les ressources Android :
+  - Icônes dans res/mipmap-*
+  - Splash screen
+  - Couleurs et thèmes
+- [ ] Tester sur émulateur Android
+- [ ] Générer l'APK de debug : `./gradlew assembleDebug`
+- [ ] Générer l'APK de release signé
 
-## Étape 5: Configuration de l'application
-- [ ] Modifier le fichier `config.xml` pour configurer:
-  - [ ] Nom de l'application
-  - [ ] Identifiant de bundle
-  - [ ] Version
-  - [ ] Icônes et écrans de démarrage
-  - [ ] Permissions nécessaires (internet, stockage, etc.)
-- [ ] Créer des icônes adaptées aux différentes tailles (Android et iOS)
-- [ ] Configurer les écrans de démarrage (splash screens)
+## Étape 6: Développement et configuration iOS
+- [ ] Ouvrir le projet iOS : `npx cap open ios` (nécessite macOS)
+- [ ] Configurer Info.plist :
+  - Permissions
+  - Orientation
+  - Capacités (si nécessaire)
+- [ ] Personnaliser les ressources iOS :
+  - Icônes dans Assets.xcassets
+  - Splash screen (LaunchScreen.storyboard)
+  - Configuration des builds
+- [ ] Tester sur simulateur iOS
+- [ ] Archiver l'app pour distribution : Xcode > Product > Archive
 
-## Étape 6: Gestion des plugins Cordova
-- [ ] Installer les plugins nécessaires:
-  - [ ] Plugin pour la musique: `cordova plugin add cordova-plugin-media`
-  - [ ] Plugin pour les notifications locales si besoin
-  - [ ] Plugin pour le partage si nécessaire
-- [ ] Adapter le code JavaScript pour utiliser les APIs Cordova au lieu des APIs web standard
+## Étape 7: Fonctionnalités natives supplémentaires (optionnel)
+- [ ] Ajouter des plugins Capacitor pour :
+  - Partage (Social Sharing)
+  - Notifications push (Push Notifications)
+  - Géolocalisation (si nécessaire pour la carte)
+  - Contacts (pour partager l'invitation)
+- [ ] Implémenter la synchronisation des données (si nécessaire)
+- [ ] Ajouter un système de mise à jour automatique
 
-## Étape 7: Développement et tests
-- [ ] Tester l'application sur émulateur Android: `cordova emulate android`
-- [ ] Tester l'application sur émulateur iOS: `cordova emulate ios`
-- [ ] Tester sur appareils physiques si possible
-- [ ] Déboguer et corriger les problèmes spécifiques mobiles:
-  - [ ] Gestion du bouton retour
-  - [ ] Comportement hors ligne
-  - [ ] Performances sur mobile
-
-## Étape 8: Build des applications
-- [ ] Build pour Android: `cordova build android --release`
-- [ ] Générer l'APK signé pour Android
-- [ ] Build pour iOS: `cordova build ios --release`
-- [ ] Générer l'IPA pour iOS via Xcode
+## Étape 8: Tests et optimisation
+- [ ] Tests sur différents appareils physiques
+- [ ] Tests de performance (taille de l'app, consommation mémoire)
+- [ ] Tests de sécurité (certificats SSL, etc.)
+- [ ] Optimisation de la taille de l'app :
+  - Compression des ressources
+  - Lazy loading des images
+  - Minification du code
 
 ## Étape 9: Publication sur les stores
-### Pour Android (Google Play Store):
-- [ ] Créer un compte développeur Google Play
-- [ ] Préparer les assets de publication (icônes, captures d'écran, description)
-- [ ] Signer l'APK avec une clé de publication
-- [ ] Téléverser l'APK sur Google Play Console
-- [ ] Configurer les détails de l'application (prix, disponibilité, etc.)
-- [ ] Publier l'application
-
-### Pour iOS (App Store):
-- [ ] Créer un compte développeur Apple
-- [ ] Préparer les assets de publication
-- [ ] Utiliser Xcode pour archiver et uploader l'application
-- [ ] Configurer l'application dans App Store Connect
-- [ ] Soumettre pour révision
-- [ ] Publier une fois approuvée
+- [ ] Préparer les assets pour les stores :
+  - Captures d'écran
+  - Descriptions
+  - Icônes haute résolution
+- [ ] Publier sur Google Play Store :
+  - Créer un compte développeur
+  - Upload de l'APK/AAB
+  - Configuration des détails de l'app
+  - Tests internes/beta si nécessaire
+- [ ] Publier sur Apple App Store :
+  - Créer un compte développeur Apple
+  - Upload via App Store Connect
+  - Configuration des métadonnées
+  - Soumission pour review
 
 ## Étape 10: Maintenance et mises à jour
-- [ ] Mettre en place un système de suivi des utilisateurs (analytics)
-- [ ] Préparer un plan de mise à jour pour corriger les bugs
-- [ ] Surveiller les retours utilisateurs et les notes sur les stores
-- [ ] Planifier les futures mises à jour avec de nouveaux contenus
+- [ ] Mettre en place un système de monitoring (analytics)
+- [ ] Planifier les mises à jour régulières
+- [ ] Gérer les retours utilisateurs
+- [ ] Maintenir la compatibilité avec les nouvelles versions d'OS
 
-## Alternatives et options supplémentaires
-### Option 1: Progressive Web App (PWA) - Plus simple
-- [ ] Ajouter un fichier manifest.json pour l'installation
-- [ ] Implémenter un service worker pour le cache hors ligne
-- [ ] Tester l'installation sur mobile
-- [ ] Avantages: Pas besoin de stores, mise à jour automatique
+## Outils et ressources nécessaires
+- Node.js et npm
+- Android Studio (pour Android)
+- Xcode (pour iOS, macOS requis)
+- Capacitor CLI
+- Compte développeur Google Play
+- Compte développeur Apple
+- Outils de compression d'images
+- Éditeur de code (VS Code recommandé)
 
-### Option 2: Framework hybride moderne (Capacitor)
-- [ ] Utiliser Capacitor au lieu de Cordova pour une meilleure performance
-- [ ] Migrer le projet vers Capacitor
-- [ ] Avantages: Meilleure intégration avec les APIs natives modernes
-
-## Ressources nécessaires
-- Compte développeur Google Play (25$)
-- Compte développeur Apple (99$/an)
-- Mac avec Xcode pour iOS
-- Connaissances en développement mobile de base
-
-## Estimation du temps
-- Préparation: 1-2 jours
-- Développement: 3-5 jours
-- Tests et débogage: 2-3 jours
-- Publication: 1-2 jours par plateforme
-- Total: 1-2 semaines pour une première version
+## Points d'attention particuliers
+- La musique de fond peut poser des problèmes sur mobile (autoplay)
+- Les animations CSS peuvent impacter les performances sur appareils bas de gamme
+- La géolocalisation dans l'iframe Google Maps nécessite des permissions spéciales
+- Assurer la conformité RGPD pour les données utilisateurs

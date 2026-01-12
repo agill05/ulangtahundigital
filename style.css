@@ -17,7 +17,7 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, var(--soft-pink) 0%, var(--cream) 50%, #E6E6FA 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
     color: var(--dark-text);
     overflow-x: hidden;
     min-height: 100vh;
@@ -418,7 +418,7 @@ h2 {
 }
 
 .gallery-item:hover {
-    transform: scale(1.05) rotate(2deg);
+    transform: scale(1.05);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
