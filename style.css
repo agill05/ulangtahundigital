@@ -221,14 +221,14 @@ section.visible {
     width: 80px;
     height: 80px;
     margin: 0 auto 40px;
-    background: var(--light-gradient);
+    background: var(--deep-burgundy);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: 2rem;
-    box-shadow: 0 10px 30px rgba(192, 192, 192, 0.4);
+    box-shadow: 0 10px 30px rgba(128, 0, 32, 0.4);
     animation: bounceIn 1s ease-out;
 }
 
@@ -250,7 +250,7 @@ h2 {
 .subtitle {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
-    color: var(--rose-silver);
+    color: var(--dark-text);
     letter-spacing: 4px;
     text-transform: uppercase;
     margin-bottom: 40px;
@@ -337,9 +337,7 @@ h2 {
 
 .event-card i {
     font-size: 3rem;
-    background: var(--light-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: var(--deep-burgundy);
     margin-bottom: 25px;
     filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.2));
 }
@@ -489,7 +487,7 @@ h2 {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #FFA500, #FFD700);
+    background: linear-gradient(135deg, #A0A0A0, #808080);
     transition: all 0.5s ease;
     z-index: -1;
 }
