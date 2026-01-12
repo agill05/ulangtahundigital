@@ -101,7 +101,7 @@ if (name) {
         <h1>Buat Undangan</h1>
         <p style="color: #777; margin-bottom: 50px; font-size: 1.1rem;">Masukkan nama tamu untuk membuat link undangan personal</p>
         <div class="input-group">
-            <input type="text" id="nameInput" placeholder="Contoh: Budi Santoso">
+            <input type="text" id="nameInput" placeholder="Contoh: Dwita Cantik Jelita">
         </div>
         <button onclick="generateLink()" class="btn-primary">
             <i class="fas fa-link"></i> Buat Link Undangan
