@@ -550,7 +550,7 @@ footer {
 footer p {
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.3rem;
-    color: var(--rose-silver);
+    color: var(--dark-text);
     margin-bottom: 10px;
 }
 
