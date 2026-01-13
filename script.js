@@ -19,6 +19,7 @@ const name = urlParams.get('name');
 if (name) {
     // INVITATION MODE
     document.getElementById('cover-name').textContent = name;
+    document.body.style.overflow = 'hidden'; // Prevent scrolling before opening invitation
 
     const audio = document.getElementById('bg-music');
     const cover = document.getElementById('cover');
@@ -28,6 +29,7 @@ if (name) {
 
     window.openInvitation = function() {
         cover.classList.add('open');
+        document.body.style.overflow = ''; // Enable scrolling after opening invitation
         setTimeout(() => {
             audio.play().catch(e => console.log('Audio autoplay prevented'));
             isPlaying = true;
