@@ -48,7 +48,7 @@ if (name) {
     }
 
     // Countdown Timer
-    const eventDate = new Date('2026-01-15T19:00:00').getTime();
+    const eventDate = new Date('2026-01-15T18:00:00').getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
