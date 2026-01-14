@@ -1,4 +1,3 @@
-// Create particles
 function createParticles() {
     const container = document.getElementById('particles');
     for (let i = 0; i < 40; i++) {
@@ -12,14 +11,12 @@ function createParticles() {
     }
 }
 
-// URL Parameters
 const urlParams = new URLSearchParams(window.location.search);
 const name = urlParams.get('name');
 
 if (name) {
-    // INVITATION MODE
     document.getElementById('cover-name').textContent = name;
-    document.body.style.overflow = 'hidden'; // Prevent scrolling before opening invitation
+    document.body.style.overflow = 'hidden';
 
     const audio = document.getElementById('bg-music');
     const cover = document.getElementById('cover');
@@ -29,7 +26,7 @@ if (name) {
 
     window.openInvitation = function() {
         cover.classList.add('open');
-        document.body.style.overflow = ''; // Enable scrolling after opening invitation
+        document.body.style.overflow = '';
         setTimeout(() => {
             audio.play().catch(e => console.log('Audio autoplay prevented'));
             isPlaying = true;
@@ -49,7 +46,6 @@ if (name) {
         isPlaying = !isPlaying;
     }
 
-    // Countdown Timer
     const eventDate = new Date('2026-01-15T18:00:00').getTime();
 
     function updateCountdown() {
@@ -77,7 +73,6 @@ if (name) {
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // Scroll Animation
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -91,7 +86,6 @@ if (name) {
     });
 
 } else {
-    // CREATOR MODE
     document.getElementById('cover').style.display = 'none';
     document.querySelector('.container').style.display = 'none';
     document.querySelector('footer').style.display = 'none';
@@ -130,5 +124,4 @@ window.generateLink = function() {
     }
 }
 
-// Initialize particles on load
 window.addEventListener('load', createParticles);
